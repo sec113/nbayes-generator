@@ -1,0 +1,88 @@
+---
+title: "BI-RADS count"
+author: "Sergio Castro"
+date: "Saturday, February 20, 2016"
+output: word_document
+---
+This document was created to count the number of BI-RADS present in each category
+First, import the dataset of the manual extraction into a dataset
+
+```{r}
+library("gdata") ##Call library gdata
+mextraction=read.csv(file = "C:/Users/SergioMC/Box Sync/Master/Documents//Final BIRADS Extraction - 200216.csv") ##Import dataset
+
+##to count the times each number appears
+length(which(mextraction==1)) 
+length(which(mextraction==2))
+length(which(mextraction==3))
+length(which(mextraction==4))
+length(which(mextraction==5))
+length(which(mextraction==6))
+length(which(mextraction==0))
+
+##we count how many categories presented in total per laterality
+leftbirads=c(
+  length(which(mextraction[,2]==0))+length(which(mextraction[,7]==0)),
+  length(which(mextraction[,2]==1))+length(which(mextraction[,7]==1)),
+  length(which(mextraction[,2]==2))+length(which(mextraction[,7]==2)),
+  length(which(mextraction[,2]==3))+length(which(mextraction[,7]==3)),
+  length(which(mextraction[,2]==4))+length(which(mextraction[,7]==4)),
+  length(which(mextraction[,2]==5))+length(which(mextraction[,7]==5)),
+  length(which(mextraction[,2]==6))+length(which(mextraction[,7]==6)))
+
+rightbirads= c(
+length(which(mextraction[,3]==0))+length(which(mextraction[,8]==0)),
+length(which(mextraction[,3]==1))+length(which(mextraction[,8]==1)),
+length(which(mextraction[,3]==2))+length(which(mextraction[,8]==2)),
+length(which(mextraction[,3]==3))+length(which(mextraction[,8]==3)),
+length(which(mextraction[,3]==4))+length(which(mextraction[,8]==4)),
+length(which(mextraction[,3]==5))+length(which(mextraction[,8]==5)),
+length(which(mextraction[,3]==6))+length(which(mextraction[,8]==6)))
+
+multilateral=c(
+length(which(mextraction[,4]==0))+length(which(mextraction[,9]==0)),
+length(which(mextraction[,4]==1))+length(which(mextraction[,9]==1)),
+length(which(mextraction[,4]==2))+length(which(mextraction[,9]==2)),
+length(which(mextraction[,4]==3))+length(which(mextraction[,9]==3)),
+length(which(mextraction[,4]==4))+length(which(mextraction[,9]==4)),
+length(which(mextraction[,4]==5))+length(which(mextraction[,9]==5)),
+length(which(mextraction[,4]==6))+length(which(mextraction[,9]==6)))
+
+overall=c(
+length(which(mextraction[,5]==0))+length(which(mextraction[,10]==0)),
+length(which(mextraction[,5]==1))+length(which(mextraction[,10]==1)),
+length(which(mextraction[,5]==2))+length(which(mextraction[,10]==2)),
+length(which(mextraction[,5]==3))+length(which(mextraction[,10]==3)),
+length(which(mextraction[,5]==4))+length(which(mextraction[,10]==4)),
+length(which(mextraction[,5]==5))+length(which(mextraction[,10]==5)),
+length(which(mextraction[,5]==6))+length(which(mextraction[,10]==6)))
+
+nonspecific=c(
+length(which(mextraction[,6]==0))+length(which(mextraction[,11]==0)),
+length(which(mextraction[,6]==1))+length(which(mextraction[,11]==1)),
+length(which(mextraction[,6]==2))+length(which(mextraction[,11]==2)),
+length(which(mextraction[,6]==3))+length(which(mextraction[,11]==3)),
+length(which(mextraction[,6]==4))+length(which(mextraction[,11]==4)),
+length(which(mextraction[,6]==5))+length(which(mextraction[,11]==5)),
+length(which(mextraction[,6]==6))+length(which(mextraction[,11]==6)))
+
+#now we create the table of the thigs we get before
+biradstable=NULL
+biradstable= rbind(biradstable, data.frame(leftbirads,rightbirads,multilateral,overall,nonspecific))
+
+#we print the table
+biradstable
+View(biradstable)
+
+#we export the table into a csv file
+write.csv(biradstable, file="C:/Users/SergioMC/Box Sync/Master/Documents/biradstable.csv")
+
+```
+
+You can also embed plots, for example:
+
+```{r, echo=FALSE}
+plot(cars)
+```
+
+Note that the `echo = FALSE` parameter was added to the code chunk to prevent printing of the R code that generated the plot.

@@ -1,0 +1,25 @@
+---
+title: "Baseline Evaluation BIRADS"
+author: "Sergio Castro"
+date: "Sunday, February 21, 2016" 
+output: word_document
+---
+
+```{r}
+library("gdata") ##Call library gdata
+install.packages("caret",dependencies = TRUE)
+install.packages("pbkrtest", dependencies = TRUE)
+library(caret) #Call Caret Library
+birads=read.csv(file="C:/Users/SergioMC/Box Sync/Master/Original BROK evaluation/finales1.csv")
+birads=birads[,-c(1,2)] #delete one of the reports and imaging type columns
+l=birads[,c(1,3)] #create a table only with the selected colums for the left
+confusionMatrix(data = l[,2],reference = l[,1])
+
+r=birads[,c(2,4)] #create a table only with the selected colums for the right
+confusionMatrix(data = r[,2],reference = r[,1])
+confusionMatrix(data = birads[,c(3,6)],reference = birads[,c(2,5)])
+accuracyl0=(0.5*0.1125)+(0.98357*(1-0.1125))
+
+```
+
+
